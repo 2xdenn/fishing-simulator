@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=3 format=3 uid="uid://glgwxyw7nfwn"]
+
+[ext_resource type="Script" path="res://item/item_data_consumable.gd" id="1_0p2pl"]
+[ext_resource type="Texture2D" uid="uid://b1ruvi8bg7ax2" path="res://item/item_textures/Locust.PNG" id="2_76oeq"]
+
+[resource]
+script = ExtResource("1_0p2pl")
+heal_value = 10
+name = "Locust"
+description = "found in the desert. makes good bait"
+stackable = true
+texture = ExtResource("2_76oeq")

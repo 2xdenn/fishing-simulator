@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2m0mjxhn5kbd"]
+
+[ext_resource type="Script" path="res://scripts/locust_spawner.gd" id="1_kaccs"]
+[ext_resource type="AudioStream" uid="uid://dj4bh1oudhb10" path="res://assets/sounds/enviornment/foliage_crunch.mp3" id="2_605cn"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xpp8c"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 1.0
+radial_segments = 8
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0kxed"]
+points = PackedVector3Array(-0.0595974, 0.5, 0.954305, -0.0608763, -0.494686, -0.974783, -0.212734, -0.493676, -0.91188, 0.7071, -0.499383, 0.7071, 0.685837, 0.5, -0.685837, -0.954305, 0.5, 0.0595974, -0.706964, -0.499423, 0.707156, -0.566455, 0.5, -0.745434, 0.7071, -0.499383, -0.7071, 0.954305, 0.5, 0.0595974, -0.974783, -0.494686, -0.0608763, 0.974783, -0.494686, -0.0608763, 0.685837, 0.5, 0.685837, 0.0608763, -0.494686, 0.974783, 0.0595974, 0.5, -0.954305, -0.68565, 0.5, 0.685837, -0.706964, -0.499423, -0.707156, -0.745434, 0.5, -0.566455, 0.954305, 0.5, -0.0595974, 0.0595974, 0.5, 0.954305, -0.974783, -0.494686, 0.0608763, 0.0608763, -0.494686, -0.974783, 0.974783, -0.494686, 0.0608763, -0.0608763, -0.494686, 0.974783, -0.954305, 0.5, -0.0595974, -0.0595974, 0.5, -0.954305, -0.68565, 0.5, -0.685837, -0.745434, 0.5, 0.566455, -0.566455, 0.5, 0.745434, 0.745434, 0.5, -0.566455, 0.566455, 0.5, 0.745434, 0.566455, 0.5, -0.745434)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ybvvy"]
+points = PackedVector3Array(0, -0.5, -1, -0.707126, -0.5, -0.707126, 0, 0.5, -1, 0.70693, -0.5, -0.707126, -1, -0.5, 0, -0.707126, 0.5, -0.707126, 0.70693, 0.5, -0.707126, 1, -0.5, 0, -1, 0.5, 0, -0.707126, -0.5, 0.70693, 1, 0.5, 0, 0.70693, -0.5, 0.70693, -0.707126, 0.5, 0.70693, 0, -0.5, 1, 0.70693, 0.5, 0.70693, 0, 0.5, 1)
+
+[node name="LocustSpawner" type="Node3D"]
+script = ExtResource("1_kaccs")
+
+[node name="TargetGrass" type="MeshInstance3D" parent="." groups=["TargetGrass"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.21552, 0.5, -8.70194)
+visible = false
+mesh = SubResource("CylinderMesh_xpp8c")
+
+[node name="TargetGrassArea" type="Area3D" parent="TargetGrass"]
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetGrass/TargetGrassArea"]
+shape = SubResource("ConvexPolygonShape3D_0kxed")
+
+[node name="GrassRustle3D" type="AudioStreamPlayer3D" parent="TargetGrass"]
+stream = ExtResource("2_605cn")
+
+[node name="SpawnGrass" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+mesh = SubResource("CylinderMesh_xpp8c")
+
+[node name="SpawnGrassArea" type="Area3D" parent="SpawnGrass"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnGrass/SpawnGrassArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("ConvexPolygonShape3D_ybvvy")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="GrassRustle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_605cn")
+
+[connection signal="body_entered" from="TargetGrass/TargetGrassArea" to="." method="_on_target_grass_area_body_entered"]
+[connection signal="body_entered" from="SpawnGrass/SpawnGrassArea" to="." method="_on_spawn_grass_area_body_entered"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

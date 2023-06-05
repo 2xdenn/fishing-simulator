@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=3 format=3 uid="uid://cngsjpykks1yg"]
+
+[ext_resource type="Script" path="res://item/item_data_equip.gd" id="1_esr33"]
+[ext_resource type="Texture2D" uid="uid://6yeq4h6k65rh" path="res://item/item_textures/Goggles.PNG" id="2_2sw5y"]
+
+[resource]
+script = ExtResource("1_esr33")
+defence = 5
+name = "Goggles"
+description = "help you see underwater"
+stackable = false
+texture = ExtResource("2_2sw5y")

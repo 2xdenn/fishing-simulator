@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDataRod" load_steps=3 format=3 uid="uid://c010fvme7tv60"]
+
+[ext_resource type="Script" path="res://item/item_data_rod.gd" id="1_pxdy3"]
+[ext_resource type="Texture2D" uid="uid://b5v22rvxh4iee" path="res://item/item_textures/Bamboo Rod.PNG" id="2_acybs"]
+
+[resource]
+script = ExtResource("1_pxdy3")
+power = 5
+fishing_power = 3
+quote = "\"Beginner's Luck\""
+name = "Starter Rod"
+description = "good for catching small fish off of the coast"
+stackable = false
+texture = ExtResource("2_acybs")
